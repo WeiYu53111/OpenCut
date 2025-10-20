@@ -7,6 +7,10 @@
 - 最后整理学习路线与配套知识点，指出理解编辑器所需的前置概念与建议练习方向。
 
 ## 视频编辑实现概览
+### 常见疑问：是否依赖其他项目？
+- 视频编辑、合成与导出均在 `apps/web` 的 Next.js 前端内完成，核心逻辑直接使用浏览器 `window`、`document`、Canvas 与 Web Audio API，因此无法在 Node.js 或独立后端项目中运行。【F:apps/web/src/stores/playback-store.ts†L1-L160】【F:apps/web/src/lib/timeline-renderer.ts†L1-L160】【F:apps/web/src/lib/export.ts†L1-L160】
+- 仓库中的 Node/Bun 代码仅用于启动 Next.js 应用、提供鉴权与转写等外围 API；时间线编辑与渲染不会调用这些后端模块。【F:packages/auth/src/server.ts†L1-L160】【F:apps/web/src/app/api/transcribe/route.ts†L1-L160】
+
 ### 项目结构与核心职责
 - `apps/web` 是前端编辑器主体，Next.js 负责页面骨架与路由，Zustand 存储跨组件状态。
 - `packages/` 存放身份认证等跨应用共享逻辑，支撑项目管理、登录等外围能力。
